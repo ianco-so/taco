@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import lombok.extern.slf4j.Slf4j;
 import me.taco.model.Ingredient;
 import me.taco.model.Ingredient.Type;
 import me.taco.model.Taco;
@@ -21,7 +20,6 @@ import me.taco.model.TacoOrder;
 @Controller
 @RequestMapping(path = "/design")
 @SessionAttributes("tacoOrder")
-@Slf4j
 public class DesignTacoController {
 
     @GetMapping()
@@ -39,8 +37,6 @@ public class DesignTacoController {
 
     @PostMapping()
     public ModelAndView processDesign(Taco taco, @ModelAttribute("tacoOrder") TacoOrder tacoOrder) {
-        log.info("Processing taco {}", taco);
-        log.info("Processing tacoOrder {}", tacoOrder);
         ModelAndView mv = new ModelAndView("redirect:/orders/current");
         tacoOrder.addTaco(taco);
         return mv;
