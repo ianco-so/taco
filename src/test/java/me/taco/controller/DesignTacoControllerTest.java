@@ -2,6 +2,7 @@ package me.taco.controller;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -23,5 +24,13 @@ public class DesignTacoControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("design"))
             .andExpect(content().string(containsString("Design your taco!")));
+    }
+
+    @Test
+    public void testProcessDesign() throws Exception {
+        this.mockMvc.perform(put("/design"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("redirect:/orders/current"))
+            .andExpect(content().string(containsString("Order your taco creations!")));
     }
 }

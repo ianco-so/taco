@@ -6,20 +6,22 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
 import me.taco.model.Ingredient;
 import me.taco.model.Ingredient.Type;
 import me.taco.model.Taco;
 import me.taco.model.TacoOrder;
 
-
-
 @Controller
 @RequestMapping(path = "/design")
 @SessionAttributes("tacoOrder")
+@Slf4j
 public class DesignTacoController {
 
     @GetMapping()
@@ -32,6 +34,15 @@ public class DesignTacoController {
         }
         mv.addObject("tacoOrder", new TacoOrder());
         mv.addObject("taco", new Taco());
+        return mv;
+    }
+
+    @PostMapping()
+    public ModelAndView processDesign(Taco taco, @ModelAttribute("tacoOrder") TacoOrder tacoOrder) {
+        log.info("Processing taco {}", taco);
+        log.info("Processing tacoOrder {}", tacoOrder);
+        ModelAndView mv = new ModelAndView("redirect:/orders/current");
+        tacoOrder.addTaco(taco);
         return mv;
     }
 

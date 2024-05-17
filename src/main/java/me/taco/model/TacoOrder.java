@@ -1,5 +1,6 @@
 package me.taco.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -27,7 +28,7 @@ public class TacoOrder {
     private String ccCVV;
     private String ccExpiration;
 
-    private List<Taco> tacos;
+    private List<Taco> tacos = new ArrayList<>();
 
     /**
      * Add a taco to the order.
