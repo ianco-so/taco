@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.validation.Valid;
 import me.taco.model.Ingredient;
 import me.taco.model.Ingredient.Type;
 import me.taco.model.Taco;
@@ -36,7 +37,7 @@ public class DesignTacoController {
     }
 
     @PostMapping()
-    public ModelAndView processDesign(Taco taco, @ModelAttribute("tacoOrder") TacoOrder tacoOrder) {
+    public ModelAndView processDesign(@Valid Taco taco, @ModelAttribute("tacoOrder") TacoOrder tacoOrder) {
         ModelAndView mv = new ModelAndView("redirect:/orders/current");
         tacoOrder.addTaco(taco);
         return mv;

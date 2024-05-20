@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import me.taco.model.TacoOrder;
@@ -33,17 +32,35 @@ public class DesignTacoControllerTest {
     @Test
     public void testProcessDesign() throws Exception {
         // ARRANGE
-        String taco = " [\"FLTO\", \"GRBF\", \"LETC\"]";
         TacoOrder tacoOrder = new TacoOrder();
+        
         // ACT & ASSERT
         this.mockMvc
             .perform(
                 post("/design")
-                .contentType(MediaType.TEXT_PLAIN)
-                .content(taco)
+                .param("name", "Delicious Taco")
+                .param("ingredients", "FLTO", "GRBF", "CHED")
                 .sessionAttr("tacoOrder", tacoOrder)
             )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/orders/current"));
+
+        // Taco without name
+        this.mockMvc
+            .perform(
+                post("/design")
+                .param("ingredients", "FLTO", "GRBF", "CHED")
+                .sessionAttr("tacoOrder", tacoOrder)
+            )
+            .andExpect(status().isBadRequest());
+
+        // Taco without ingredients
+        this.mockMvc
+            .perform(
+                post("/design")
+                .param("name", "Delicious Taco")
+                .sessionAttr("tacoOrder", tacoOrder)
+            )
+            .andExpect(status().isBadRequest());
     }
 }
