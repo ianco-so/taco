@@ -10,7 +10,7 @@ public class Ingredient {
     private final String id;
 
     @NotNull
-    @Size(min = 3, message = "Name must be at least 3 characters long")
+    @Size(min = 3, max=50, message = "Name must be at least 3 characters long")
     private final String name;
 
     @NotNull(message = "Type must not be null")
