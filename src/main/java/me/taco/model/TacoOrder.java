@@ -31,7 +31,7 @@ public class TacoOrder {
     private String city;
     private String state;
     
-    @Pattern(regexp = "^[0-9]{5}$", message = "Invalid ZIP code")
+    @Pattern(regexp = "^\\d{5}-?\\d{3}$", message = "Invalid ZIP code")
     private String zip;
     
     @CreditCardNumber(message = "Not a valid credit card number")
@@ -40,7 +40,7 @@ public class TacoOrder {
     @Pattern(regexp = "^[0-9]{3}$", message = "Invalid CVV")
     private String ccCVV;
 
-    @Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$", message = "Must be formatted MM/YY")
+    @Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([2-9][4-9])$", message = "Must be formatted MM/YY")
     private String ccExpiration;
 
     @NotNull(message = "You must choose at least 1 taco")

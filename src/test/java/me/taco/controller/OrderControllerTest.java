@@ -1,7 +1,6 @@
 package me.taco.controller;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -14,10 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import me.taco.model.Ingredient;
 import me.taco.model.Taco;
@@ -30,9 +28,6 @@ public class OrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
     
-    @Autowired
-    private ObjectMapper objectMapper;
-
     private TacoOrder tacoOrder;
 
     @BeforeEach
@@ -49,6 +44,17 @@ public class OrderControllerTest {
         taco.setIngredients(List.of(ingredient1, ingredient2, ingredient3));
 
         this.tacoOrder.addTaco(taco);
+
+        Taco taco2 = new Taco();
+        taco2.setName("Taco 2");
+
+        ingredient1 = new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP);
+        ingredient2 = new Ingredient("CARN", "Carnitas", Ingredient.Type.PROTEIN);
+        ingredient3 = new Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE);
+
+        taco2.setIngredients(List.of(ingredient1, ingredient2, ingredient3));
+
+        this.tacoOrder.addTaco(taco2);
     }
 
     @Test
@@ -64,32 +70,54 @@ public class OrderControllerTest {
     }
     
     @Test
-    public void testProcessOrder() throws Exception {
+    public void testProcessOrderWithValidOrder() throws Exception {
         // ARRANGE
-        this.tacoOrder.setClientName("John Doe");
-        this.tacoOrder.setStreet("1234 Endless Street");
-        this.tacoOrder.setCity("Springfield");
-        this.tacoOrder.setState("RN");
-        this.tacoOrder.setZip("12345-678");
-        this.tacoOrder.setCcNumber("1234567890123456");
-        this.tacoOrder.setCcCVV("123");
-        this.tacoOrder.setCcExpiration("01/23");
-
-
-        String tacoOrderJson = this.objectMapper.writeValueAsString(this.tacoOrder);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("clientName", "John Doe");
+        params.add("street", "123 Main St");
+        params.add("city", "Springfield");
+        params.add("state", "RN");
+        params.add("zip", "12345-678");
+        params.add("ccNumber", "30569309025904");
+        params.add("ccCVV", "123");
+        params.add("ccExpiration", "12/24");
 
         // ACT & ASSERT
-        var result = this.mockMvc
+        this.mockMvc
             .perform(
                 post("/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(tacoOrderJson)
+                .params(params)
+                .sessionAttr("tacoOrder", this.tacoOrder)
             )
             .andExpect(status().is3xxRedirection())
-            .andReturn();
+            .andExpect(view().name("redirect:/"));
+    }
 
-        var redirectUrl = result.getResponse().getRedirectedUrl();
+    @Test
+    public void testProcessOrderWithInvalidOrder () throws Exception {
+        // ARRANGE
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("clientName", "John Doe");
+        params.add("street", "123 Main St");
+        params.add("city", "Springfield");
+        params.add("state", "RN");
+        params.add("zip", "2345-678");
+        params.add("ccNumber", "30569309025905");
+        params.add("ccCVV", "1234");
+        params.add("ccExpiration", "12/21");
 
-        assertEquals("/", redirectUrl);
+        // ACT & ASSERT
+        this.mockMvc
+            .perform(
+                post("/orders")
+                .params(params)
+                .sessionAttr("tacoOrder", this.tacoOrder)
+            )
+            .andExpect(status().isOk())
+            .andExpect(view().name("OrderForm"))
+            .andExpect(content().string(containsString("Invalid ZIP code")))
+            .andExpect(content().string(containsString("Not a valid credit card number")))
+            .andExpect(content().string(containsString("Invalid CVV")))
+            .andExpect(content().string(containsString("Must be formatted MM/YY")));
     }
 }

@@ -52,7 +52,21 @@ public class DesignTacoControllerTest {
                 .param("ingredients", "FLTO", "GRBF", "CHED")
                 .sessionAttr("tacoOrder", tacoOrder)
             )
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isOk())
+            .andExpect(view().name("design"))
+            .andExpect(content().string(containsString("must not be null")));
+
+        // Taco with invalid name
+        this.mockMvc
+            .perform(
+                post("/design")
+                .param("name", "a")
+                .param("ingredients", "FLTO", "GRBF", "CHED")
+                .sessionAttr("tacoOrder", tacoOrder)
+            )
+            .andExpect(status().isOk())
+            .andExpect(view().name("design"))
+            .andExpect(content().string(containsString("between 3 and 50 char")));
 
         // Taco without ingredients
         this.mockMvc
@@ -61,6 +75,21 @@ public class DesignTacoControllerTest {
                 .param("name", "Delicious Taco")
                 .sessionAttr("tacoOrder", tacoOrder)
             )
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isOk())
+            .andExpect(view().name("design"))
+            .andExpect(content().string(containsString("must not be null")));
+
+        
+        // Taco with invalid ingredients
+        this.mockMvc
+            .perform(
+                post("/design")
+                .param("name", "Delicious Taco")
+                .param("ingredients", "")
+                .sessionAttr("tacoOrder", tacoOrder)
+            )
+            .andExpect(status().isOk())
+            .andExpect(view().name("design"))
+            .andExpect(content().string(containsString("at least 1")));
     }
 }

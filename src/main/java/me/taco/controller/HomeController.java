@@ -3,7 +3,6 @@ package me.taco.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -13,10 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     
     @GetMapping()
-    public ModelAndView getHome() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("home");
-        return mv;
+    public String getHome() {
+        return "home";
     }
     
 }
