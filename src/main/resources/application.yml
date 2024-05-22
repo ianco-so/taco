@@ -1,0 +1,14 @@
+spring:
+    application:
+        name: taco
+    output:
+        ansi:
+            enabled: ALWAYS
+    datasource:
+        generate-unique-name: false
+        name: taco
+
+server:
+    port: 8080
+    servlet:
+        context-path: /taco
