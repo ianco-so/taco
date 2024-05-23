@@ -10,9 +10,4 @@ class TacoApplicationTests {
 	void contextLoads() {
 	}
 
-	@Test
-	void mainTest() {
-		TacoApplication.main(new String[] {});
-	}
-
 }

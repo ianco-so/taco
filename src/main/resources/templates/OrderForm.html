@@ -18,7 +18,7 @@
                   <a th:href="@{/design}" id="another">Design another taco</a><br/>
                   <ul>
                         <li th:each="taco : ${tacoOrder.tacos}">
-                              <span th:text="${taco.name}">taco name</span>
+                              <span th:text="${taco.tacoName}">taco name</span>
                         </li>
                   </ul>
             
@@ -42,34 +42,34 @@
                   <!-- tag::allButValidation[] -->
                   <br/>
             
-                  <label for="street">Street address: </label>
-                  <input type="text" th:field="*{street}"/>
+                  <label for="clientStreet">Street address: </label>
+                  <input type="text" th:field="*{clientStreet}"/>
                   <!-- end::allButValidation[] -->
                   <span class="validationError"
-                        th:if="${#fields.hasErrors('street')}"
-                        th:errors="*{street}">
+                        th:if="${#fields.hasErrors('clientStreet')}"
+                        th:errors="*{clientStreet}">
                         Street Error
                   </span>
                   <!-- tag::allButValidation[] -->
                   <br/>
             
-                  <label for="city">City: </label>
-                  <input type="text" th:field="*{city}"/>
+                  <label for="clientCity">City: </label>
+                  <input type="text" th:field="*{clientCity}"/>
                   <!-- end::allButValidation[] -->
                   <span class="validationError"
-                        th:if="${#fields.hasErrors('city')}"
-                        th:errors="*{city}">
+                        th:if="${#fields.hasErrors('clientCity')}"
+                        th:errors="*{clientCity}">
                         City Error
                   </span>
                   <!-- tag::allButValidation[] -->
                   <br/>
             
-                  <label for="state">State: </label>
-                  <input type="text" th:field="*{state}"/>
+                  <label for="clientState">State: </label>
+                  <input type="text" th:field="*{clientState}"/>
                   <!-- end::allButValidation[] -->
                   <span class="validationError"
-                        th:if="${#fields.hasErrors('state')}"
-                        th:errors="*{state}">
+                        th:if="${#fields.hasErrors('clientState')}"
+                        th:errors="*{clientState}">
                         State Error
                   </span>
                   <!-- tag::allButValidation[] -->
@@ -111,12 +111,12 @@
                   <!-- tag::allButValidation[] -->
                   <br/>
             
-                  <label for="ccCVV">CVV: </label>
-                  <input type="text" th:field="*{ccCVV}"/>
+                  <label for="ccCvv">CVV: </label>
+                  <input type="text" th:field="*{ccCvv}"/>
                   <!-- end::allButValidation[] -->
                   <span class="validationError"
-                        th:if="${#fields.hasErrors('ccCVV')}"
-                        th:errors="*{ccCVV}">
+                        th:if="${#fields.hasErrors('ccCvv')}"
+                        th:errors="*{ccCvv}">
                         CC Num Error
                   </span>
                   <!-- tag::allButValidation[] -->
