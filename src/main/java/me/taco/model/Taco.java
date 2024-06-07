@@ -4,17 +4,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-// @Table("Taco")
+@Entity(name = "Taco")
+/**
+ * <h4> It's represents an Taco. </h4>
+ * 
+ * @author <a href="https://www.github.com/ianco-so">ianco</a>
+ * @version 0.0.4
+ * @since 0.0.1
+ * @see Ingredient
+ * @see TacoOrder
+ */
 public class Taco {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -22,8 +35,13 @@ public class Taco {
     private String tacoName;
 
     @NotNull
+    @ManyToMany(targetEntity = Ingredient.class)
     @Size(min = 1, max = 100, message = "choose at least 1 ingredient")
-    private List<IngredientRef> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     private Date createdAt;
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+    }
 }
