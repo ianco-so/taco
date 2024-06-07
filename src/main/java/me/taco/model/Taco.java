@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
+// @Table("Taco")
 public class Taco {
 
-    // Generate a unique identifier for each taco
-    @Positive
+    @Id
     private Long id;
 
     @NotNull
