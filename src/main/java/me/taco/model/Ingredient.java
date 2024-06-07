@@ -2,8 +2,6 @@ package me.taco.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Persistable;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
