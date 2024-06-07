@@ -18,7 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import me.taco.model.IngredientRef;
+import me.taco.model.Ingredient;
+import me.taco.model.Ingredient.Type;
 import me.taco.model.Taco;
 import me.taco.model.TacoOrder;
 import me.taco.repository.IngredientRepository;
@@ -46,23 +47,26 @@ public class OrderControllerTest {
         Taco taco = new Taco();
         taco.setTacoName("Taco 1");
 
-        IngredientRef ref1 = new IngredientRef("FLTO"); // Flour Tortilla
-        IngredientRef ref2 = new IngredientRef("GRBF"); // Ground Beef
-        IngredientRef ref3 = new IngredientRef("CHED"); // Cheddar
+        // IngredientRef ref1 = new IngredientRef("FLTO"); // Flour Tortilla
+        // IngredientRef ref2 = new IngredientRef("GRBF"); // Ground Beef
+        // IngredientRef ref3 = new IngredientRef("CHED"); // Cheddar
 
+        Ingredient i1 = new Ingredient("FLTO", "Flour Tortilla", Type.WRAP);
+        Ingredient i2 = new Ingredient("GRBF", "Ground Beef", Type.PROTEIN);
+        Ingredient i3 = new Ingredient("CHED", "Cheddar", Type.CHEESE);
 
-        taco.setIngredients(List.of(ref1, ref2, ref3));
+        taco.setIngredients(List.of(i1, i2, i3));
 
         this.tacoOrder.addTaco(taco);
 
         Taco taco2 = new Taco();
         taco2.setTacoName("Taco 2");
 
-        ref1 = new IngredientRef("COTO"); // Corn Tortilla
-        ref2 = new IngredientRef("CARN"); // Carnitas
-        ref3 = new IngredientRef("JACK"); // Monterey Jack
+        i1 = new Ingredient("COTO", "Corn Tortilla", Type.WRAP);
+        i2 = new Ingredient("CARN", "Carnitas", Type.PROTEIN);
+        i3 = new Ingredient("JACK", "Monterrey Jack", Type.CHEESE);
 
-        taco2.setIngredients(List.of(ref1, ref2, ref3));
+        taco2.setIngredients(List.of(i1, i2, i3));
 
         this.tacoOrder.addTaco(taco2);
     }
