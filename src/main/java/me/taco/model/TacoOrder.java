@@ -40,7 +40,7 @@ public class TacoOrder implements Serializable {
     private Long id;
     
     @NotBlank(message = "Name is required")
-    @Size(min = 5, message = "Name must be at least 5 characters long")
+    @Size(min = 5, max = 50, message = "Name must be at least 5 characters long")
     private String clientName;
     
     @NotBlank(message = "Street is required")
