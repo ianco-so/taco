@@ -13,6 +13,7 @@
         </header>
         <main>
             <form method="POST" th:object="${taco}" class="grid">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                 <span class="validationError"
                     th:if="${#fields.hasErrors('ingredients')}"
                     th:errors="*{ingredients}">
@@ -57,5 +58,10 @@
                 <button>Submit Your Taco</button>
             </form>
         </main>
+        <footer>
+            <form method="POST" th:action="@{/logout}">
+                <input type="submit" value="Logout"/>
+            </form>
+        </footer>
     </body>
 </html>

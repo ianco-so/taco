@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,7 +41,7 @@ public class TacoOrder implements Serializable {
     private Long id;
     
     @NotBlank(message = "Name is required")
-    @Size(min = 5, message = "Name must be at least 5 characters long")
+    @Size(min = 5, max = 50, message = "Name must be at least 5 characters long")
     private String clientName;
     
     @NotBlank(message = "Street is required")
@@ -71,6 +72,9 @@ public class TacoOrder implements Serializable {
     @Size(min = 1, message = "You must choose at least 1 taco")
     @OneToMany(targetEntity = Taco.class, cascade = CascadeType.ALL)
     private List<Taco> tacos = new ArrayList<>();
+
+    @ManyToOne
+    private TacoUser user;
     
 
     /**

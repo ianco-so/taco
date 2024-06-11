@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Taco</title>
+    </head>
+    <body>
+        <header>
+            <h1>Login</h1>
+        </header>
+        <main>
+            <div th:if="${error}">
+                Unable to login.  Please check your username and password.
+            </div>
+            <form th:action="@{/login}" method="POST">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autofocus /> <br />
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required /> <br />
+                <input type="submit" value="Login" />
+            </form>
+        </main>
+        <footer>
+            <p>
+                New User? <a th:href="@{/register}">Register here</a>
+            </p>
+        </footer>
+    </body>
+</html>
