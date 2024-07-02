@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.taco.model.TacoOrder;
 import me.taco.model.TacoUser;
 import me.taco.repository.OrderRepository;
+import me.taco.service.OrderService;
 
 @Controller
 @RequestMapping(path = "/orders")
@@ -24,6 +25,9 @@ public class OrderController {
 
     @Autowired
     private OrderRepository orderRepo;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/current")
     public String orderForm() {
@@ -48,4 +52,11 @@ public class OrderController {
         sessionStatus.setComplete();
         return "redirect:/";
     }
+
+    @GetMapping("/delete/all")
+    public String deleteAll() {
+        this.orderService.deleteAllOrders();
+        return "redirect:/";
+    }
+
 }
