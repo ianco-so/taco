@@ -67,6 +67,14 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 			<!-- <version>3.3.0</version> -->
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-test -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<!-- <version>6.3.1</version> -->
+			<scope>test</scope>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc -->
 		<!-- 
@@ -97,6 +105,14 @@
 			<!-- <version>2.2.224</version> -->
 			<scope>runtime</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/htmlunit-driver -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>htmlunit-driver</artifactId>
+			<!-- <version>4.13.0</version> -->
+	      	<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

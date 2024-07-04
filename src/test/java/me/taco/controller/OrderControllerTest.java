@@ -1,6 +1,7 @@
 package me.taco.controller;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -24,6 +26,7 @@ import me.taco.model.Taco;
 import me.taco.model.TacoOrder;
 import me.taco.repository.IngredientRepository;
 import me.taco.repository.OrderRepository;
+import me.taco.service.OrderService;
 
 
 @WebMvcTest(OrderController.class)
@@ -33,6 +36,9 @@ public class OrderControllerTest {
     private MockMvc mockMvc;
     
     private TacoOrder tacoOrder;
+
+    @MockBean
+    private OrderService orderService;
 
     @MockBean
     private OrderRepository orderRepo;
@@ -46,11 +52,7 @@ public class OrderControllerTest {
 
         Taco taco = new Taco();
         taco.setTacoName("Taco 1");
-
-        // IngredientRef ref1 = new IngredientRef("FLTO"); // Flour Tortilla
-        // IngredientRef ref2 = new IngredientRef("GRBF"); // Ground Beef
-        // IngredientRef ref3 = new IngredientRef("CHED"); // Cheddar
-
+        
         Ingredient i1 = new Ingredient("FLTO", "Flour Tortilla", Type.WRAP);
         Ingredient i2 = new Ingredient("GRBF", "Ground Beef", Type.PROTEIN);
         Ingredient i3 = new Ingredient("CHED", "Cheddar", Type.CHEESE);
@@ -72,6 +74,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testuser", password = "testpassword", roles = "USER")
     public void testOrderForm() throws Exception {
         this.mockMvc
             .perform(
@@ -82,8 +85,9 @@ public class OrderControllerTest {
             .andExpect(view().name("OrderForm"))
             .andExpect(content().string(containsString("Order your taco creations!")));
     }
-    
-    @Test
+
+     @Test
+     @WithMockUser(username = "testuser", password = "testpassword", roles = "USER")
     public void testProcessOrderWithValidOrder() throws Exception {
         // ARRANGE
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -99,7 +103,7 @@ public class OrderControllerTest {
         // ACT & ASSERT
         this.mockMvc
             .perform(
-                post("/orders")
+                post("/orders").with(csrf())
                 .params(params)
                 .sessionAttr("tacoOrder", this.tacoOrder)
             )
@@ -108,6 +112,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testuser", password = "testpassword", roles = "USER")
     public void testProcessOrderWithInvalidOrder () throws Exception {
         // ARRANGE
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -123,7 +128,7 @@ public class OrderControllerTest {
         // ACT & ASSERT
         this.mockMvc
             .perform(
-                post("/orders")
+                post("/orders").with(csrf())
                 .params(params)
                 .sessionAttr("tacoOrder", this.tacoOrder)
             )
