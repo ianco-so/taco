@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
@@ -23,7 +25,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authz -> authz
             .requestMatchers("/design", "/orders").hasRole("USER")
             .requestMatchers("/", "/**").permitAll()
-        ).formLogin(login -> login
+            .requestMatchers(toH2Console()).permitAll()
+        ).csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()))
+        .headers(headers -> headers.frameOptions(frameOpt -> frameOpt.sameOrigin()))
+        .formLogin(login -> login
             .loginPage("/login")
             .defaultSuccessUrl("/design")
         ).logout(Customizer.withDefaults());
