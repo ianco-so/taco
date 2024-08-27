@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import me.taco.controller.props.OrderProps;
 import me.taco.repository.IngredientRepository;
 import me.taco.repository.OrderRepository;
 import me.taco.repository.TacoUserRepository;
@@ -43,6 +44,9 @@ public class WebConfigTest {
     
     @MockBean
     private PasswordEncoder encoder;
+
+    @MockBean
+    private OrderProps orderProps;
 
     @Test
     @WithMockUser
