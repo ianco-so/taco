@@ -6,7 +6,7 @@ spring:
             enabled: ALWAYS
     datasource:
         generate-unique-name: false
-        name: taco
+        name: tacodb
     security:
         user:
             name: ianco
@@ -19,10 +19,26 @@ server:
         key-store: classpath:keystore/tacokeys.jks
         key-store-password: tacopass
         key-password: tacopass
-
 taco:
     orders:
         pageSize: 20
+---
+spring:
+    config:
+        activate.on-profile: dev
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+    datasource:
+        url: jdbc:h2:file:./db/tacodb
+        username: tacouser
+        password: tacoh2pass
+        driver-class-name: org.h2.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
 ---
 spring:
     config:
