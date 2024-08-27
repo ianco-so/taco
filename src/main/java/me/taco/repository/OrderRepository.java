@@ -1,8 +1,12 @@
 package me.taco.repository;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import me.taco.model.TacoOrder;
+import me.taco.model.TacoUser;
 
 /**
  * <h4>
@@ -18,4 +22,7 @@ import me.taco.model.TacoOrder;
  * @author <a href="https://www.github.com/ianco-so">ianco</a>
  */
 public interface OrderRepository extends CrudRepository<TacoOrder, Long>{
+
+    List<TacoOrder> findAllByUserOrderByPlacedAtDesc(TacoUser user, Pageable pageable);
+
 }

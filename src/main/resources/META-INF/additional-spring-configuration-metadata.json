@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "taco.orders.page-size",
+  "type": "java.lang.Integer",
+  "description": "Its the number of orders to show on a page"
+}]}

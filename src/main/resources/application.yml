@@ -7,12 +7,12 @@ spring:
     datasource:
         generate-unique-name: false
         name: taco
-        # url: jdbc:h2:taco
-        # url: jdbc:mysql://localhost/tacodb
         # username: ianco
         # password: tacopass
-
-
+    security:
+        user:
+            name: ianco
+            password: tacopass
 server:
     port: 8443
     servlet:
@@ -21,3 +21,7 @@ server:
         key-store: classpath:keystore/tacokeys.jks
         key-store-password: tacopass
         key-password: tacopass
+
+taco:
+    orders:
+        pageSize: 20
