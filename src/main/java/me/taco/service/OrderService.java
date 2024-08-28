@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import me.taco.repository.OrderRepository;
+import me.taco.api.repository.OrderRepository;
 
 @Service
 public class OrderService {

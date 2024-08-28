@@ -14,10 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import me.taco.controller.props.OrderProps;
-import me.taco.repository.IngredientRepository;
-import me.taco.repository.OrderRepository;
-import me.taco.repository.TacoUserRepository;
+import me.taco.api.repository.IngredientRepository;
+import me.taco.api.repository.OrderRepository;
+import me.taco.api.repository.TacoRepository;
+import me.taco.api.repository.TacoUserRepository;
+import me.taco.controller.props.Props;
 import me.taco.service.OrderService;
 @WebMvcTest
 // @Disabled("I'm not sure why this test is failing. I'm going to disable it for now.")
@@ -46,7 +47,10 @@ public class WebConfigTest {
     private PasswordEncoder encoder;
 
     @MockBean
-    private OrderProps orderProps;
+    private Props props;
+
+    @MockBean
+    private TacoRepository tacoRepo;
 
     @Test
     @WithMockUser

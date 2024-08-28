@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
-import me.taco.model.Ingredient;
-import me.taco.model.Ingredient.Type;
-import me.taco.model.Taco;
-import me.taco.model.TacoOrder;
-import me.taco.repository.IngredientRepository;
+import me.taco.api.model.Ingredient;
+import me.taco.api.model.Taco;
+import me.taco.api.model.TacoOrder;
+import me.taco.api.model.Ingredient.Type;
+import me.taco.api.repository.IngredientRepository;
 
 @Controller
 @RequestMapping(path = "/design")

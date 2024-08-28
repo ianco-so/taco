@@ -14,10 +14,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import me.taco.controller.props.OrderProps;
-import me.taco.model.TacoOrder;
-import me.taco.model.TacoUser;
-import me.taco.repository.OrderRepository;
+import me.taco.api.model.TacoOrder;
+import me.taco.api.model.TacoUser;
+import me.taco.api.repository.OrderRepository;
+import me.taco.controller.props.Props;
 import me.taco.service.OrderService;
 
 @Controller
@@ -27,7 +27,7 @@ import me.taco.service.OrderService;
 public class OrderController {
 
     @Autowired
-    private OrderProps orderProps;
+    private Props props;
 
     @Autowired
     private OrderRepository orderRepo;
@@ -67,7 +67,7 @@ public class OrderController {
 
     @GetMapping
     public String ordersForUsers (@AuthenticationPrincipal TacoUser user, Model model) {
-        var pageable = PageRequest.of(0, this.orderProps.getPageSize());
+        var pageable = PageRequest.of(0, this.props.getPageSize());
         log.warn("User: {}", user);
         log.warn("Pageable {}", pageable);
         model.addAttribute("orders", this.orderRepo.findAllByUserOrderByPlacedAtDesc(user, pageable));

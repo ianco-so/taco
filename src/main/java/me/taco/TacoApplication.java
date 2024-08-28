@@ -5,9 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import me.taco.model.Ingredient;
-import me.taco.model.Ingredient.Type;
-import me.taco.repository.IngredientRepository;
+import me.taco.api.model.Ingredient;
+import me.taco.api.model.Ingredient.Type;
+import me.taco.api.repository.IngredientRepository;
 
 @SpringBootApplication
 public class TacoApplication {

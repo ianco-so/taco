@@ -1,4 +1,4 @@
-package me.taco.model;
+package me.taco.api.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

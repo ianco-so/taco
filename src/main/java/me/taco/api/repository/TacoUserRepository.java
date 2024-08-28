@@ -1,8 +1,8 @@
-package me.taco.repository;
+package me.taco.api.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import me.taco.model.TacoUser;
+import me.taco.api.model.TacoUser;
 
 public interface TacoUserRepository extends CrudRepository<TacoUser, Long> {
     TacoUser findByUsername (String username);

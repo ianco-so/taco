@@ -1,4 +1,4 @@
-package me.taco.model;
+package me.taco.api.model;
 
 import java.util.Arrays;
 import java.util.Collection;

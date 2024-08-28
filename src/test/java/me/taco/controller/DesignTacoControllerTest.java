@@ -21,9 +21,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import me.taco.model.Ingredient;
-import me.taco.model.Ingredient.Type;
-import me.taco.repository.IngredientRepository;
+import me.taco.api.model.Ingredient;
+import me.taco.api.model.Ingredient.Type;
+import me.taco.api.repository.IngredientRepository;
 
 
 @WebMvcTest(DesignTacoController.class)

@@ -1,9 +1,9 @@
-package me.taco.model.dto;
+package me.taco.api.model.dto;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.Data;
-import me.taco.model.TacoUser;
+import me.taco.api.model.TacoUser;
 
 @Data
 public class RegistrationForm {

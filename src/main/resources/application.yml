@@ -20,7 +20,7 @@ server:
         key-store-password: tacopass
         key-password: tacopass
 taco:
-    orders:
+    props:
         pageSize: 20
 ---
 spring:

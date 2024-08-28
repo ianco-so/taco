@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
-import me.taco.model.dto.RegistrationForm;
-import me.taco.repository.TacoUserRepository;
+import me.taco.api.model.dto.RegistrationForm;
+import me.taco.api.repository.TacoUserRepository;
 
 
 

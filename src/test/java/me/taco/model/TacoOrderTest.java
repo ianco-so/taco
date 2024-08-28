@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import me.taco.api.model.Taco;
+import me.taco.api.model.TacoOrder;
+
 public class TacoOrderTest {
     
     private TacoOrder tacoOrder;

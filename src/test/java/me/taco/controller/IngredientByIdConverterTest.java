@@ -10,9 +10,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import me.taco.model.Ingredient;
-import me.taco.model.Ingredient.Type;
-import me.taco.repository.IngredientRepository;
+import me.taco.api.model.Ingredient;
+import me.taco.api.model.Ingredient.Type;
+import me.taco.api.repository.IngredientRepository;
 
 public class IngredientByIdConverterTest {
     

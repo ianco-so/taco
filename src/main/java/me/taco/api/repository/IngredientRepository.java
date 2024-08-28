@@ -1,8 +1,8 @@
-package me.taco.repository;
+package me.taco.api.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import me.taco.model.Ingredient;
+import me.taco.api.model.Ingredient;
 /**
  * <h4>
  *  This interface is used to interact with the database. And it provides the basic CRUD operations.

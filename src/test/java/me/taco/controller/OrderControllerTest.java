@@ -20,13 +20,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import me.taco.controller.props.OrderProps;
-import me.taco.model.Ingredient;
-import me.taco.model.Ingredient.Type;
-import me.taco.model.Taco;
-import me.taco.model.TacoOrder;
-import me.taco.repository.IngredientRepository;
-import me.taco.repository.OrderRepository;
+import me.taco.api.model.Ingredient;
+import me.taco.api.model.Taco;
+import me.taco.api.model.TacoOrder;
+import me.taco.api.model.Ingredient.Type;
+import me.taco.api.repository.IngredientRepository;
+import me.taco.api.repository.OrderRepository;
+import me.taco.controller.props.Props;
 import me.taco.service.OrderService;
 
 
@@ -48,7 +48,7 @@ public class OrderControllerTest {
     private IngredientRepository ingredientRepo;
 
     @MockBean
-    private OrderProps orderProps;
+    private Props props;
 
     @BeforeEach
     public void setup() {
