@@ -14,11 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import me.taco.api.controller.props.Props;
 import me.taco.api.repository.IngredientRepository;
 import me.taco.api.repository.OrderRepository;
 import me.taco.api.repository.TacoRepository;
 import me.taco.api.repository.TacoUserRepository;
-import me.taco.controller.props.Props;
 import me.taco.service.OrderService;
 @WebMvcTest
 // @Disabled("I'm not sure why this test is failing. I'm going to disable it for now.")

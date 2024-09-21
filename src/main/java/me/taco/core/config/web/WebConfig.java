@@ -1,4 +1,4 @@
-package me.taco.core.web;
+package me.taco.core.config.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;

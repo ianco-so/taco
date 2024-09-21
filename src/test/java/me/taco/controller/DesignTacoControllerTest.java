@@ -97,7 +97,7 @@ public class DesignTacoControllerTest {
 
     @Test
     @WithMockUser(username="testuser", password="testpass", authorities = "ROLE_USER")
-    public void testProcessDesignFailed() throws Exception {
+    public void testProcessDesignWithoutName() throws Exception {
         // Withcout name
         this.mockMvc
             .perform(
@@ -106,12 +106,15 @@ public class DesignTacoControllerTest {
             )
             .andExpect(status().isOk())
             .andExpect(view().name("design"));
-        
-        // Without ingredients
+    }
+
+    @Test
+    @WithMockUser(username="testuser", password="testpass", authorities = "ROLE_USER")
+    public void testProcessDesignWithoutNameAndIngredient() throws Exception {
+        // Without name and ingredient
         this.mockMvc
             .perform(
                 post("/design").with(csrf())
-                .param("tacoName", "Delicious Taco")
             )
             .andExpect(status().isOk())
             .andExpect(view().name("design"));

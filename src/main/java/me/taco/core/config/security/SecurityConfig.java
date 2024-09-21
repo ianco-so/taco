@@ -1,4 +1,4 @@
-package me.taco.core.security;
+package me.taco.core.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

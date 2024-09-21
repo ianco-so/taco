@@ -14,10 +14,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import me.taco.api.controller.props.Props;
 import me.taco.api.model.TacoOrder;
 import me.taco.api.model.TacoUser;
 import me.taco.api.repository.OrderRepository;
-import me.taco.controller.props.Props;
 import me.taco.service.OrderService;
 
 @Controller

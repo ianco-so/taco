@@ -1,5 +1,7 @@
-{"properties": [{
-  "name": "taco.props.page-size",
-  "type": "java.lang.Integer",
-  "description": "Its the number of orders to show on a page"
-}]}
+{"properties": [
+  {
+    "name": "taco.props.page-size",
+    "type": "java.lang.Integer",
+    "description": "Its the number of orders list to show in a page per time"
+  }
+]}

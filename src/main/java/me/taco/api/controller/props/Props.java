@@ -1,4 +1,4 @@
-package me.taco.controller.props;
+package me.taco.api.controller.props;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

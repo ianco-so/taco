@@ -1,9 +1,9 @@
 package me.taco.api.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +25,6 @@ import lombok.Data;
  * @see TacoOrder
  */
 public class Taco {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -37,9 +36,10 @@ public class Taco {
     @NotNull
     @ManyToMany(targetEntity = Ingredient.class)
     @Size(min = 1, max = 100, message = "choose at least 1 ingredient")
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients;
 
-    private Date createdAt;
+    @Column(updatable = false)
+    private final Date createdAt = new Date();
 
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);

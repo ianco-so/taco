@@ -1,18 +1,19 @@
 package me.taco.api.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.taco.api.controller.props.Props;
 import me.taco.api.model.Taco;
 import me.taco.api.repository.TacoRepository;
-import me.taco.controller.props.Props;
-
 
 @RestController
 @RequestMapping(path = "/api/tacos", produces = "application/json")
@@ -23,11 +24,16 @@ public class TacoController {
     private TacoRepository tacoRepository;
 
     @Autowired
-    private static Props props;
-
+    private Props props;
+    
     @GetMapping(params = "recent")
-    public Iterable<Taco> recentTacos(@RequestParam String param) {
-        PageRequest page = PageRequest.of(0, TacoController.props.getPageSize(), Sort.by("createdAt").descending());
+    public Iterable<Taco> recentTacos() {
+        PageRequest page = PageRequest.of(0, this.props.getPageSize(), Sort.by("createdAt").descending());
         return tacoRepository.findAll(page).getContent();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Taco> tacoById (@PathVariable("id") Long id) {
+        return this.tacoRepository.findById(id);
     }
 }
