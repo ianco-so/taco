@@ -20,10 +20,7 @@ public class TacoUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username)
       throws UsernameNotFoundException {
     var user = userRepo.findByUsername(username);
-    if (user != null) {
-      return user;
-    }
-    throw new UsernameNotFoundException("User '" + username + "' not found");
+    return user.orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
   }
 
 }

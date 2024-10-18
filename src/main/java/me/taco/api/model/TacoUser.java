@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,9 +34,11 @@ public class TacoUser implements UserDetails {
     private Long id;
 
     @NotBlank
+    @Column(unique = true, nullable = false)
     private final String username;
 
     @NotBlank
+    @Column(nullable = false)
     private final String password;
 
     @Size(min = MIN_STR_LEN, max = MAX_STR_LEN, message = "Fullname must be between "+MIN_STR_LEN+" and "+MAX_STR_LEN+"characters long")

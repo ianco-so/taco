@@ -1,6 +1,7 @@
 package me.taco.core.config;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.extern.slf4j.Slf4j;
 import me.taco.api.model.Ingredient;
 import me.taco.api.model.Taco;
 import me.taco.api.model.TacoUser;
@@ -18,6 +20,7 @@ import me.taco.api.repository.TacoUserRepository;
 
 @Profile("!prod")
 @Configuration
+@Slf4j
 public class DevConfig {
     
 
@@ -40,29 +43,35 @@ public class DevConfig {
             var slsa = new Ingredient("SLSA", "Salsa",          Type.SAUCE);
             var srcr = new Ingredient("SRCR", "Sour Cream",     Type.SAUCE);
 
-            ingredientRepo.save(flto);
-            ingredientRepo.save(coto);
-            ingredientRepo.save(grbf);
-            ingredientRepo.save(carn);
-            ingredientRepo.save(tmto);
-            ingredientRepo.save(letc);
-            ingredientRepo.save(ched);
-            ingredientRepo.save(jack);
-            ingredientRepo.save(slsa);
-            ingredientRepo.save(srcr);
+            var ingredients = List.of(
+                flto,
+                coto,
+                grbf,
+                carn,
+                tmto,
+                letc,
+                ched,
+                jack,
+                slsa,
+                srcr
+            );
 
+            ingredientRepo.saveAll(ingredients);
             //---------------------------------------------------------------------------------------
-
-            userRepo.save(new TacoUser(
-                "ianco",
-                encoder.encode("ianco"),
-                "Ianco Soares Oliveira",
-                "Avenida João Gomes de Torres, 20",
-                "Canguaretama",
-                "RN",
-                "59190000",
-                "84981696513"
-            ));
+            
+            userRepo.findByUsername("ianco").ifPresentOrElse(
+                user -> log.error("User {} already exists", user.getUsername()),
+                () -> userRepo.save(new TacoUser(
+                    "ianco", 
+                    encoder.encode("pass"), 
+                    "Ianco Soares Oliveira", 
+                    "Avenida João Gomes de Torres, 20", 
+                    "Canguaretama", 
+                    "RN", 
+                    "59190000", 
+                    "84981696513"
+                ))
+            );
 
             //---------------------------------------------------------------------------------------
 
@@ -77,9 +86,8 @@ public class DevConfig {
             taco3.setTacoName("Veggie");
             taco3.setIngredients(Arrays.asList(flto, coto, tmto, letc, slsa));
 
-            tacoRepo.save(taco1);
-            tacoRepo.save(taco2);
-            tacoRepo.save(taco3);
+            var tacos = List.of(taco1, taco2, taco3);
+            tacoRepo.saveAll(tacos);
         };
     }
 }
