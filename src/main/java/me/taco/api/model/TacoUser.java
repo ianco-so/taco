@@ -26,8 +26,8 @@ import lombok.RequiredArgsConstructor;
 public class TacoUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private static final int MIN_STR_LEN = 5;
-    private static final int MAX_STR_LEN = 50;
+    public static final int MIN_STR_LEN = 5;
+    public static final int MAX_STR_LEN = 50;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
