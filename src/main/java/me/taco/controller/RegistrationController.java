@@ -9,8 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
@@ -34,9 +32,7 @@ public class RegistrationController {
 
     @GetMapping
     public String registerForm(Model model) {
-        // if (!model.containsAttribute("registrationForm")) {
-            model.addAttribute("registrationForm", new RegistrationForm());
-        // }
+        model.addAttribute("registrationForm", new RegistrationForm());
         return "registration";
     }
 
@@ -47,7 +43,6 @@ public class RegistrationController {
         RedirectAttributes attr
     ) {
         if (result.hasErrors()) {
-            log.error("Errors: {}", result.getAllErrors());
             return "registration";
         }
         var user = form.toTacoUser(this.encoder);
@@ -56,13 +51,7 @@ public class RegistrationController {
         } catch (DataIntegrityViolationException dive) {
             result.rejectValue("username", "error.username", "Username already exists");
             return "registration";
-        } catch (Exception e) {
-            log.error("Error saving user: " + user, e);
-            result.rejectValue("username", "error.username", "Error saving user");
-            return "registration";
         }
-        log.info("Form submitted: " + form);
-        log.info("User saved: " + user);
         return "redirect:/login";
     }
 }

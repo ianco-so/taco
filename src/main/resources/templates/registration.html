@@ -21,7 +21,7 @@
             </div>
 
             <label for="username">Username: </label>
-            <input type="text" name="username"/>
+            <input type="text" name="username" placeholder="username" th:field="*{username}"/>
             <span class="validationError"
                 th:if="${#fields.hasErrors('username')}"
                 th:errors="*{username}">
@@ -48,7 +48,7 @@
             <br/>
     
             <label for="fullname">Full name: </label>
-            <input type="text" name="fullname"/>
+            <input type="text" name="fullname" placeholder="fullname" th:field="*{fullname}"/>
             <span class="validationError" 
                 th:if="${#fields.hasErrors('fullname')}"
                 th:errors="*{fullname}">
@@ -57,7 +57,7 @@
             <br/>
         
             <label for="street">Street: </label>
-            <input type="text" name="street"/>
+            <input type="text" name="street" placeholder="street" th:field="*{street}"/>
             <span class="validationError" 
                 th:if="${#fields.hasErrors('street')}"
                 th:errors="*{street}">
@@ -66,7 +66,7 @@
             <br/>
         
             <label for="city">City: </label>
-            <input type="text" name="city"/>
+            <input type="text" name="city" placeholder="city" th:field="*{city}"/>
             <span class="validationError"
                 th:if="${#fields.hasErrors('city')}"
                 th:errors="*{city}">
@@ -75,7 +75,7 @@
             <br/>
         
             <label for="state">State: </label>
-            <input type="text" name="state"/>
+            <input type="text" name="state" placeholder="state" th:field="*{state}"/>
             <span class="validationError"
                 th:if="${#fields.hasErrors('state')}"
                 th:errors="*{state}">
@@ -84,7 +84,7 @@
             <br/>
 
             <label for="zip">Zip: </label>
-            <input type="text" name="zip"/>
+            <input type="text" name="zip" placeholder="zip" th:field="*{zip}"/>
             <span class="validationError"
                 th:if="${#fields.hasErrors('zip')}"
                 th:errors="*{zip}">
@@ -93,7 +93,7 @@
             <br/>
 
             <label for="phone">Phone: </label>
-            <input type="text" name="phone"/>
+            <input type="tel" name="phone" placeholder="phone" th:field="*{phone}"/>
             <span class="validationError" 
                 th:if="${#fields.hasErrors('phone')}"
                 th:errors="*{phone}">
