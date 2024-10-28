@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import me.taco.api.repository.TacoUserRepository;
 
 @Controller
 @RequestMapping(path = "/register")
-// @SessionAttributes("registrationForm")
 @Slf4j
 public class RegistrationController {
     
@@ -39,8 +37,7 @@ public class RegistrationController {
     @PostMapping
     public String processRegistrationForm (
         @Valid RegistrationForm form,
-        BindingResult result,
-        RedirectAttributes attr
+        BindingResult result
     ) {
         if (result.hasErrors()) {
             return "registration";
@@ -48,6 +45,7 @@ public class RegistrationController {
         var user = form.toTacoUser(this.encoder);
         try {
             user = this.tacoUserRepo.save(user);
+            log.info("Saving user {}", user);
         } catch (DataIntegrityViolationException dive) {
             result.rejectValue("username", "error.username", "Username already exists");
             return "registration";

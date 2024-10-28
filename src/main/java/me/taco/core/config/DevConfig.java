@@ -11,9 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.extern.slf4j.Slf4j;
 import me.taco.api.model.Ingredient;
+import me.taco.api.model.Ingredient.Type;
+import me.taco.api.model.enums.StateCode;
 import me.taco.api.model.Taco;
 import me.taco.api.model.TacoUser;
-import me.taco.api.model.Ingredient.Type;
 import me.taco.api.repository.IngredientRepository;
 import me.taco.api.repository.TacoRepository;
 import me.taco.api.repository.TacoUserRepository;
@@ -67,7 +68,7 @@ public class DevConfig {
                     "Ianco Soares Oliveira", 
                     "Avenida João Gomes de Torres, 20", 
                     "Canguaretama", 
-                    "RN", 
+                    StateCode.RN, 
                     "59190000", 
                     "84981696513"
                 ))
