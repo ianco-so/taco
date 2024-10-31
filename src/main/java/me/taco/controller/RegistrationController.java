@@ -31,7 +31,7 @@ public class RegistrationController {
     @GetMapping
     public String registerForm(Model model) {
         model.addAttribute("registrationForm", new RegistrationForm());
-        return "registration";
+        return "Registration";
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class RegistrationController {
         BindingResult result
     ) {
         if (result.hasErrors()) {
-            return "registration";
+            return "Registration";
         }
         var user = form.toTacoUser(this.encoder);
         try {
@@ -48,7 +48,7 @@ public class RegistrationController {
             log.info("Saving user {}", user);
         } catch (DataIntegrityViolationException dive) {
             result.rejectValue("username", "error.username", "Username already exists");
-            return "registration";
+            return "Registration";
         }
         return "redirect:/login";
     }

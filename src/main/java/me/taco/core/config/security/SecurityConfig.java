@@ -23,7 +23,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authz -> authz
-            .requestMatchers("/design", "/orders").hasRole("USER")
+            .requestMatchers("/design", "/orders", "/orders/**").hasRole("USER")
             .requestMatchers("/", "/**").permitAll()
             .requestMatchers(toH2Console()).permitAll()
         ).csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()))

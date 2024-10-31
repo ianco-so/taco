@@ -2,6 +2,7 @@ package me.taco.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +38,16 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/current")
-    public String orderForm() {
+    public String orderForm(Model model, @AuthenticationPrincipal TacoUser user) {
+        var tacoOrder = (TacoOrder) model.getAttribute("tacoOrder");
+        if (tacoOrder == null) {
+            return "redirect:/design";
+        }
+        tacoOrder.setClientName(user.getFullname());
+        tacoOrder.setClientStreet(user.getStreet());
+        tacoOrder.setClientCity(user.getCity());
+        tacoOrder.setClientState(user.getState().toString());
+        tacoOrder.setZip(user.getZip());
         return "OrderForm";
     }
 
@@ -51,10 +62,10 @@ public class OrderController {
             log.error("Errors: {}", errors.getAllErrors());
             return "OrderForm";
         }
-        
+        log.info("Order submitted: {}", order);
         order.setUser(user);
-
-        this.orderRepo.save(order);
+        var savedOrder = this.orderRepo.save(order);
+        log.info("Order saved: {}", savedOrder);
         sessionStatus.setComplete();
         return "redirect:/";
     }

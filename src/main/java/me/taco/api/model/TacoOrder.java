@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import me.taco.api.model.validation.ValidStateCode;
 /**
  * <h4> It's represents a Taco Order. </h4>
  * <p>
@@ -49,8 +50,10 @@ public class TacoOrder implements Serializable {
     
     @NotBlank(message = "City is required")
     private String clientCity;
-    
-    @NotBlank(message = "State is required")
+
+    @ValidStateCode
+    @Size(min = 2, max = 2, message = "State must be 2 characters long")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Invalid state, use only alphabetic characters")
     private String clientState;
     
     @NotBlank(message = "ZIP code is required")
@@ -60,7 +63,7 @@ public class TacoOrder implements Serializable {
     @CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber; /** cc = Credit Card */
     
-    @Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([2-9][4-9])$", message = "Must be formatted MM/YY")
+    @Pattern(regexp = "^(0[1-9]|1[0-2])\\/\\d{2}$", message = "Must be formatted MM/YY")
     private String ccExpiration;
 
     @Pattern(regexp = "^[0-9]{3}$", message = "Invalid CVV")
